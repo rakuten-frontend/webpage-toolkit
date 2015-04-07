@@ -5,14 +5,31 @@
     <title>Web Page Toolkit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app.css">
   </head>
   <body>
-    <div class="container">
-      <div ng-controller="FormController">
-        <form sf-schema="schema" sf-form="form" sf-model="model"></form>
+    <div class="container" ng-controller="FormController">
+      <h1>Web Page Toolkit</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Input</h2>
+          <form
+            name="appForm"
+            sf-schema="schema"
+            sf-form="form"
+            sf-model="model"
+            ng-submit="submit(appForm)"></form>
+        </div>
+        <div class="col-md-6">
+          <h2>Preview</h2>
+          <div class="embed-responsive preview-wrapper">
+            <iframe class="preview" ng-src="{{iframeSrc}}"></iframe>
+          </div>
+        </div>
       </div>
     </div>
     <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/handlebars/handlebars.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="../bower_components/tv4/tv4.js"></script>

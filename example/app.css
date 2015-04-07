@@ -1,0 +1,10 @@
+.preview-wrapper {
+  padding-bottom: 500px;
+  border: 1px solid #ddd;
+}
+.preview {
+  width: 200% !important;
+  height: 200% !important;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+}
