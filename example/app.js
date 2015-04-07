@@ -2,6 +2,7 @@
   'use strict';
 
   var angular = window.angular;
+  var _ = window._;
   var Handlebars = window.Handlebars;
 
   var schema = {
@@ -68,7 +69,6 @@
         $scope.$broadcast('schemaFormValidate');
         if (form.$valid) {
           console.log($scope.model);
-          $scope.render();
         }
       };
 
@@ -79,7 +79,11 @@
         $scope.iframeSrc = $sce.trustAsResourceUrl(url);
       };
 
-      $scope.render();
+      $scope.$watch('model', _.debounce(function () {
+        $scope.$apply(function () {
+          $scope.render();
+        });
+      }, 500), true);
 
     }
   ]);
