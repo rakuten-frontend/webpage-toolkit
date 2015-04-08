@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Name or alias",
+      "maxLength": 10
+    },
+    "type": {
+      "type": "string",
+      "title": "Type",
+      "enum": ["dr", "jr", "sir", "mrs", "mr", "NaN", "dj"]
+    },
+    "friends": {
+      "type": "array",
+      "title": "Friends",
+      "items": {
+        "type": "object",
+        "title": "Friend",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  },
+  "required": ["name"]
+}

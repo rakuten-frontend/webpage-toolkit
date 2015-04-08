@@ -6,59 +6,46 @@
   var $ = window.jQuery;
   var Handlebars = window.Handlebars;
 
-  var schema = {
-    "type": "object",
-    "properties": {
-      "name": {
-        "type": "string",
-        "title": "Name",
-        "description": "Name or alias",
-        "maxLength": 10
-      },
-      "type": {
-        "type": "string",
-        "title": "Type",
-        "enum": ["dr", "jr", "sir", "mrs", "mr", "NaN", "dj"]
-      },
-      "friends": {
-        "type": "array",
-        "title": "Friends",
-        "items": {
-          "type": "object",
-          "title": "Friend",
-          "properties": {
-            "name": {
-              "type": "string",
-              "title": "Name"
-            }
-          },
-          "required": ["name"]
-        }
-      }
-    },
-    "required": ["name"]
-  };
-  var source = '<h1>Hello, {{type}}{{name}}!</h1>\n' +
-               '<h2>Friends:</h2>\n' +
-               '<ul>\n' +
-               '{{#each friends}}\n' +
-               '<li>{{name}}</li>\n' +
-               '{{/each}}\n' +
-               '</ul>';
-  var template = Handlebars.compile(source);
-  var viewport = $('#preview').contents().find('html');
+  var schemaUrl = 'schema.json';
+  var templateUrl = 'template.hbs';
 
   angular
   .module('webpageToolkit', ['schemaForm', 'angularFileUpload'])
   .controller('FormController', [
     '$scope',
-    '$upload',
-    function ($scope, $upload) {
+    '$q',
+    '$http',
+    function ($scope, $q, $http) {
 
-      $scope.schema = schema;
+      var viewport = $('#preview').contents().find('html');
+      var template;
+
+      $scope.schema = {};
       $scope.model = {};
-
       $scope.form = ['*'];
+      $scope.initialized = false;
+
+      $scope.init = function () {
+        var schemaRequest = $scope.loadSchema();
+        var templateRequest = $scope.loadTemplate();
+        $q.all([schemaRequest, templateRequest]).then(function () {
+          $scope.initialized = true;
+        });
+      };
+
+      $scope.loadSchema = function () {
+        var request = $http.get(schemaUrl).then(function (data) {
+          $scope.schema = data.data;
+        });
+        return request;
+      };
+
+      $scope.loadTemplate = function () {
+        var request = $http.get(templateUrl).then(function (data) {
+          template = Handlebars.compile(data.data);
+        });
+        return request;
+      };
 
       $scope.getHtml = function () {
         return template($scope.model);
@@ -109,17 +96,22 @@
       };
 
       $scope.$watch('model', _.debounce(function () {
+        if (!$scope.initialized) {
+          return;
+        }
         $scope.$apply(function () {
           $scope.render();
         });
       }, 500), true);
 
       $scope.$watch('importFiles', function () {
-        if (!$scope.importFiles || $scope.importFiles.length === 0) {
+        if (!$scope.initialized || !$scope.importFiles || $scope.importFiles.length === 0) {
           return;
         }
         $scope.importJson($scope.importFiles[0]);
       });
+
+      $scope.init();
 
     }
   ]);
