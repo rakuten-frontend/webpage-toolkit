@@ -36,7 +36,15 @@
         </div>
         <div class="col-md-6">
           <h2>Preview</h2>
-          <div class="embed-responsive preview-wrapper">
+          <div class="form-group">
+            <label>Device</label>
+            <select class="form-control" ng-model="previewDevice">
+              <option value="pc">PC</option>
+              <option value="tablet">Tablet</option>
+              <option value="smartphone">Smartphone</option>
+            </select>
+          </div>
+          <div class="embed-responsive preview-wrapper {{previewDevice}}">
             <iframe id="preview" class="preview"></iframe>
           </div>
         </div>

@@ -5,9 +5,28 @@
   padding-bottom: 500px;
   border: 1px solid #ddd;
 }
+
 .preview {
-  width: 200% !important;
-  height: 200% !important;
-  transform: scale(0.5);
   transform-origin: 0 0;
+}
+
+.pc {
+  .preview {
+    width: 200% !important;
+    height: 200% !important;
+    transform: scale(0.5);
+  }
+}
+
+.tablet {
+  max-width: 400px;
+  .preview {
+    width: 200% !important;
+    height: 200% !important;
+    transform: scale(0.5);
+  }
+}
+
+.smartphone {
+  max-width: 360px;
 }

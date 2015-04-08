@@ -40,6 +40,7 @@
       $scope.defaults = {};
       $scope.form = ['*'];
       $scope.initialized = false;
+      $scope.previewDevice = 'pc';
 
       $scope.init = function () {
         var schemaRequest = $scope.loadSchema();
