@@ -13,12 +13,13 @@
       <div class="row">
         <div class="col-md-6">
           <h2>Input</h2>
-          <form
-            name="appForm"
-            sf-schema="schema"
-            sf-form="form"
-            sf-model="model"
-            ng-submit="submit(appForm)"></form>
+          <form name="appForm" novalidate>
+            <div sf-schema="schema" sf-form="form" sf-model="model"></div>
+            <div class="form-group">
+              <button type="button" class="btn btn-primary" ng-click="downloadHtml()">Download HTML</button>
+              <button type="button" class="btn btn-default" ng-click="downloadJson()">Download Data</button>
+            </div>
+          </form>
         </div>
         <div class="col-md-6">
           <h2>Preview</h2>
