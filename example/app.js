@@ -37,14 +37,14 @@
     },
     "required": ["name"]
   };
-
-  var template = '<h1>Hello, {{type}}{{name}}!</h1>\n' +
-                 '<h2>Friends:</h2>' +
-                 '<ul>\n' +
-                 '{{#each friends}}\n' +
-                 '<li>{{name}}</li>\n' +
-                 '{{/each}}\n' +
-                 '</ul>';
+  var source = '<h1>Hello, {{type}}{{name}}!</h1>\n' +
+               '<h2>Friends:</h2>' +
+               '<ul>\n' +
+               '{{#each friends}}\n' +
+               '<li>{{name}}</li>\n' +
+               '{{/each}}\n' +
+               '</ul>';
+  var template = Handlebars.compile(source);
 
   angular
   .module('webpageToolkit', ['schemaForm'])
@@ -73,7 +73,7 @@
       };
 
       $scope.render = function () {
-        var html = Handlebars.compile(template)($scope.model);
+        var html = template($scope.model);
         var blob = new Blob([html], {type: 'text/html'});
         var url = URL.createObjectURL(blob);
         $scope.iframeSrc = $sce.trustAsResourceUrl(url);
