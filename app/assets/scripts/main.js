@@ -6,8 +6,8 @@
   var $ = window.jQuery;
   var Handlebars = window.Handlebars;
 
-  var schemaUrl = 'schema.json';
-  var templateUrl = 'template.hbs';
+  var schemaUrl = 'data/schema.json';
+  var templateUrl = 'data/template.hbs';
 
   angular
   .module('webpageToolkit', ['schemaForm', 'angularFileUpload'])
@@ -62,7 +62,7 @@
       $scope.downloadHtml = function () {
         $scope.$broadcast('schemaFormValidate');
         if (!$scope.appForm.$valid) {
-          alert('Invalid form data');
+          window.alert('Invalid form data');
           return;
         }
         $scope.download('index.html', $scope.getHtml());
@@ -84,7 +84,7 @@
         reader.readAsText(file);
         reader.onload = function () {
           $scope.import($scope.parseJson(reader.result));
-        }
+        };
       };
 
       $scope.parseJson = function (string) {
