@@ -22,10 +22,15 @@
           <h2>Input</h2>
           <form name="appForm" novalidate>
             <div sf-schema="schema" sf-form="form" sf-model="model"></div>
-            <div class="form-group">
-              <button class="btn btn-primary" ng-click="downloadHtml()">Download HTML</button>
-              <button class="btn btn-default" ng-click="downloadJson()">Export Data</button>
-              <button class="btn btn-default" ng-file-select ng-model="importFiles" accept=".json">Import Data</button>
+            <div class="form-group clearfix">
+              <div class="pull-left">
+                <button class="btn btn-primary" ng-click="downloadHtml()">Download HTML</button>
+                <button class="btn btn-default" ng-click="downloadJson()">Export Data</button>
+                <button class="btn btn-default" ng-file-select ng-model="importFiles" accept=".json">Import Data</button>
+              </div>
+              <div class="pull-right">
+                <button class="btn btn-default" ng-click="reset()">Reset</button>
+              </div>
             </div>
           </form>
         </div>

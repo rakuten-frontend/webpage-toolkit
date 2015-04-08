@@ -28,26 +28,31 @@
     '$scope',
     '$q',
     '$http',
+    '$timeout',
     'localStorageService',
-    function ($scope, $q, $http, localStorageService) {
+    function ($scope, $q, $http, $timeout, localStorageService) {
 
       var viewport = document.getElementById('preview');
       var template;
 
       $scope.schema = {};
       $scope.model = {};
+      $scope.defaults = {};
       $scope.form = ['*'];
       $scope.initialized = false;
 
       $scope.init = function () {
         var schemaRequest = $scope.loadSchema();
         var templateRequest = $scope.loadTemplate();
-        if (!localStorageService.get('model')) {
-          localStorageService.set('model', $scope.model);
-        }
-        localStorageService.bind($scope, 'model');
         $q.all([schemaRequest, templateRequest]).then(function () {
-          $scope.initialized = true;
+          $timeout(function () {
+            $scope.defaults = angular.copy($scope.model);
+            if (!localStorageService.get('model')) {
+              localStorageService.set('model', $scope.model);
+            }
+            localStorageService.bind($scope, 'model');
+            $scope.initialized = true;
+          }, 100);   // Hotfix for getting array value correctly.
         });
       };
 
@@ -113,6 +118,10 @@
 
       $scope.import = function (data) {
         $scope.model = angular.copy(data);
+      };
+
+      $scope.reset = function () {
+        $scope.model = angular.copy($scope.defaults);
       };
 
       $scope.$watch('model', _.debounce(function () {
