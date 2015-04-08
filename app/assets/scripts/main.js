@@ -6,16 +6,21 @@
   var $ = window.jQuery;
   var Handlebars = window.Handlebars;
 
+  var appName = 'webpage-toolkit';
   var schemaUrl = 'data/schema.json';
   var templateUrl = 'data/template.hbs';
 
   angular
-  .module('webpageToolkit', ['schemaForm', 'angularFileUpload'])
+  .module('webpageToolkit', ['schemaForm', 'angularFileUpload', 'LocalStorageModule'])
+  .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix(appName);
+  }])
   .controller('FormController', [
     '$scope',
     '$q',
     '$http',
-    function ($scope, $q, $http) {
+    'localStorageService',
+    function ($scope, $q, $http, localStorageService) {
 
       var viewport = $('#preview').contents().find('html');
       var template;
@@ -28,6 +33,10 @@
       $scope.init = function () {
         var schemaRequest = $scope.loadSchema();
         var templateRequest = $scope.loadTemplate();
+        if (!localStorageService.get('model')) {
+          localStorageService.set('model', $scope.model);
+        }
+        localStorageService.bind($scope, 'model');
         $q.all([schemaRequest, templateRequest]).then(function () {
           $scope.initialized = true;
         });
