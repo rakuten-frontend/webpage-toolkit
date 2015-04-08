@@ -11,7 +11,7 @@
   var templateUrl = 'data/template.hbs';
 
   angular
-  .module('webpageToolkit', ['schemaForm', 'angularFileUpload', 'LocalStorageModule'])
+  .module('webpageToolkit', ['schemaForm', 'angularFileUpload', 'LocalStorageModule', 'ui.sortable'])
   .config([
     'localStorageServiceProvider',
     'schemaFormDecoratorsProvider',

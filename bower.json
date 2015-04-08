@@ -11,6 +11,8 @@
     "bootstrap": "~3.3.4",
     "ng-file-upload": "~3.2.4",
     "modernizr": "~2.8.3",
-    "angular-local-storage": "~0.1.5"
+    "angular-local-storage": "~0.1.5",
+    "jquery-ui": "~1.11.4",
+    "angular-ui-sortable": "~0.13.3"
   }
 }
