@@ -16,8 +16,9 @@
           <form name="appForm" novalidate>
             <div sf-schema="schema" sf-form="form" sf-model="model"></div>
             <div class="form-group">
-              <button type="button" class="btn btn-primary" ng-click="downloadHtml()">Download HTML</button>
-              <button type="button" class="btn btn-default" ng-click="downloadJson()">Download Data</button>
+              <button class="btn btn-primary" ng-click="downloadHtml()">Download HTML</button>
+              <button class="btn btn-default" ng-click="downloadJson()">Export Data</button>
+              <button class="btn btn-default" ng-file-select ng-model="importFiles" accept=".json">Import Data</button>
             </div>
           </form>
         </div>
@@ -38,6 +39,7 @@
     <script src="../bower_components/objectpath/lib/ObjectPath.js"></script>
     <script src="../bower_components/angular-schema-form/dist/schema-form.js"></script>
     <script src="../bower_components/angular-schema-form/dist/bootstrap-decorator.js"></script>
+    <script src="../bower_components/ng-file-upload/angular-file-upload.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

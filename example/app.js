@@ -49,10 +49,11 @@
   var viewport = $('#preview').contents().find('html');
 
   angular
-  .module('webpageToolkit', ['schemaForm'])
+  .module('webpageToolkit', ['schemaForm', 'angularFileUpload'])
   .controller('FormController', [
     '$scope',
-    function ($scope) {
+    '$upload',
+    function ($scope, $upload) {
 
       $scope.schema = schema;
       $scope.model = {};
@@ -91,11 +92,34 @@
         pom.click();
       };
 
+      $scope.importJson = function (file) {
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = function () {
+          $scope.import($scope.parseJson(reader.result));
+        }
+      };
+
+      $scope.parseJson = function (string) {
+        return JSON.parse(string);
+      };
+
+      $scope.import = function (data) {
+        $scope.model = angular.copy(data);
+      };
+
       $scope.$watch('model', _.debounce(function () {
         $scope.$apply(function () {
           $scope.render();
         });
       }, 500), true);
+
+      $scope.$watch('importFiles', function () {
+        if (!$scope.importFiles || $scope.importFiles.length === 0) {
+          return;
+        }
+        $scope.importJson($scope.importFiles[0]);
+      });
 
     }
   ]);
