@@ -12,9 +12,18 @@
 
   angular
   .module('webpageToolkit', ['schemaForm', 'angularFileUpload', 'LocalStorageModule'])
-  .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
-    localStorageServiceProvider.setPrefix(appName);
-  }])
+  .config([
+    'localStorageServiceProvider',
+    'schemaFormDecoratorsProvider',
+    function (localStorageServiceProvider, decoratorsProvider) {
+      localStorageServiceProvider.setPrefix(appName);
+      decoratorsProvider.addMapping(
+        'bootstrapDecorator',
+        'array',
+        'assets/templates/array.html'
+      );
+    }
+  ])
   .controller('FormController', [
     '$scope',
     '$q',
@@ -22,7 +31,7 @@
     'localStorageService',
     function ($scope, $q, $http, localStorageService) {
 
-      var viewport = $('#preview').contents().find('html');
+      var viewport = document.getElementById('preview');
       var template;
 
       $scope.schema = {};
@@ -65,7 +74,9 @@
       };
 
       $scope.render = function () {
-        viewport.html($scope.getHtml());
+        viewport.contentWindow.document.open();
+        viewport.contentWindow.document.write($scope.getHtml());
+        viewport.contentWindow.document.close();
       };
 
       $scope.downloadHtml = function () {

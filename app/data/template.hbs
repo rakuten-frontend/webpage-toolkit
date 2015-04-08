@@ -2,15 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{name}}</title>
+    <title>Demo: {{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+    <style>
+      body { padding-top: 70px; }
+      h1 { margin-bottom: 20px; }
+      h2 { margin-top: 30px; }
+      .container { margin-bottom: 40px; }
+      .col-sm-4 h3 { margin-top: 0; }
+    </style>
   </head>
   <body>
-    <h1>Hello, {{type}}{{name}}!</h1>
-    <h2>Friends:</h2>
-    <ul>
-      {{#each friends}}
-      <li>{{name}}</li>
-      {{/each}}
-    </ul>
+    <div class="container">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{{title}}</a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <h1 class="text-center">Welcome to {{title}}!</h1>
+      <p class="text-center">
+        <img src="http://lorempixel.com/240/240/{{image}}/4" alt="" width="240" height="240" class="img-circle">
+      </p>
+      <h2>About</h2>
+      <p>{{about}}</p>
+      <h2>Friends</h2>
+      <div class="row">
+        {{#each friends}}
+        <div class="col-sm-4">
+          <h3>{{name}}</h3>
+          <p>{{description}}</p>
+        </div>
+        {{/each}}
+      </div>
+      <hr>
+      <p class="text-center text-muted">Copyright (c) 2015 {{title}}</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
   </body>
 </html>

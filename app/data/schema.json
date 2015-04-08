@@ -1,20 +1,32 @@
 {
   "type": "object",
   "properties": {
-    "name": {
+    "title": {
       "type": "string",
-      "title": "Name",
-      "description": "Name or alias",
-      "maxLength": 10
+      "title": "Title",
+      "default": "Awesome Site",
+      "description": "Title of your web site",
+      "maxLength": 20
     },
-    "type": {
+    "image": {
       "type": "string",
-      "title": "Type",
-      "enum": ["dr", "jr", "sir", "mrs", "mr", "NaN", "dj"]
+      "title": "Image",
+      "enum": ["city", "animals", "sports", "nature", "abstract"],
+      "default": "city"
+    },
+    "about": {
+      "type": "string",
+      "title": "About",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh augue, fermentum condimentum lobortis ac, mollis ut odio. Mauris dignissim nec ligula sit amet hendrerit. Morbi sed massa non nisl lacinia pharetra vitae non felis. Integer pulvinar ornare odio, non facilisis est interdum id.",
+      "x-schema-form": {
+        "type": "textarea"
+      }
     },
     "friends": {
       "type": "array",
       "title": "Friends",
+      "minItems": 1,
+      "maxItems": 3,
       "items": {
         "type": "object",
         "title": "Friend",
@@ -22,11 +34,18 @@
           "name": {
             "type": "string",
             "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "x-schema-form": {
+              "type": "textarea"
+            }
           }
         },
         "required": ["name"]
       }
     }
   },
-  "required": ["name"]
+  "required": ["name", "image"]
 }
