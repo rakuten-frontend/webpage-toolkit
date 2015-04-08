@@ -3,6 +3,7 @@
 
   var angular = window.angular;
   var _ = window._;
+  var $ = window.jQuery;
   var Handlebars = window.Handlebars;
 
   var schema = {
@@ -45,6 +46,7 @@
                '{{/each}}\n' +
                '</ul>';
   var template = Handlebars.compile(source);
+  var viewport = $('#preview').contents().find('html');
 
   angular
   .module('webpageToolkit', ['schemaForm'])
@@ -55,7 +57,6 @@
 
       $scope.schema = schema;
       $scope.model = {};
-      $scope.iframeSrc = '';
 
       $scope.form = [
         '*',
@@ -72,16 +73,14 @@
         }
       };
 
-      $scope.render = function () {
+      $scope.preview = function () {
         var html = template($scope.model);
-        var blob = new Blob([html], {type: 'text/html'});
-        var url = URL.createObjectURL(blob);
-        $scope.iframeSrc = $sce.trustAsResourceUrl(url);
+        viewport.html(html);
       };
 
       $scope.$watch('model', _.debounce(function () {
         $scope.$apply(function () {
-          $scope.render();
+          $scope.preview();
         });
       }, 500), true);
 
