@@ -40,6 +40,8 @@
       $scope.form = ['*'];
       $scope.initialized = false;
       $scope.previewDevice = 'pc';
+      $scope.errorShown = false;
+      $scope.errorMessage = '';
 
       $scope.init = function () {
         var schemaRequest = $scope.loadSchema();
@@ -87,7 +89,7 @@
       $scope.downloadHtml = function () {
         $scope.$broadcast('schemaFormValidate');
         if (!$scope.appForm.$valid) {
-          window.alert('Invalid form data');
+          $scope.alert('Invalid form input');
           return;
         }
         $scope.download('index.html', $scope.getHtml());
@@ -124,6 +126,15 @@
 
       $scope.reset = function () {
         $scope.model = angular.copy($scope.defaults);
+      };
+
+      $scope.alert = function (message) {
+        $scope.errorMessage = message;
+        $scope.errorShown = true;
+        $timeout(function () {
+          $scope.errorMessage = '';
+          $scope.errorShown = false;
+        }, 2000);
       };
 
       $scope.$watch('model', _.debounce(function () {

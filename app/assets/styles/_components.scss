@@ -94,3 +94,30 @@
 .viewport-smartphone {
   @include scale-viewport(360px, 640px);
 }
+
+// Notifier
+.notifier {
+  $width: 200px;
+  $offset: 35px;
+  display: block;
+  position: fixed;
+  top: -$offset;
+  left: 50%;
+  z-index: 2;
+  width: $width;
+  min-height: 28px;
+  margin-left: -$width / 2;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition-property: transform;
+  transition-duration: 0.2s;
+  &.in {
+    transform: translate(0, $offset);
+  }
+}
+
+.notifier-error {
+  color: #fff;
+  background-color: $brand-danger;
+}
