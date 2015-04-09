@@ -64,9 +64,9 @@
 }
 
 .viewport-wrapper {
+  overflow: hidden;
   margin-top: 15px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
 }
 
 .viewport {
@@ -77,7 +77,9 @@
 @mixin scale-viewport($device-width, $device-height, $viewport-width: $preview-width) {
   $ratio: $device-height / $device-width;
   $scale: $viewport-width / $device-width;
-  padding-bottom: $preview-width * $ratio;
+  .embed-responsive {
+    padding-bottom: $viewport-width * $ratio;
+  }
   .viewport {
     width: 100% / $scale !important;
     height: 100% / $scale !important;
@@ -86,13 +88,27 @@
 }
 
 .viewport-pc {
-  @include scale-viewport(1024px, 1600px);
+  $width: $preview-width - 1px * 2;
+  border: 1px solid #ddd;
+  @include scale-viewport(1024px, 1600px, $width);
 }
 .viewport-tablet {
-  @include scale-viewport(768px, 1024px);
+  $width: $preview-width - 42px * 2;
+  height: 467px;
+  padding: 50px 42px 0;
+  background-image: url(../images/tablet.png);
+  background-size: 360px 467px;
+  background-repeat: no-repeat;
+  @include scale-viewport(768px, 1024px, $width);
 }
 .viewport-smartphone {
-  @include scale-viewport(360px, 640px);
+  $width: $preview-width - 25px * 2;
+  height: 720px;
+  padding: 83px 25px 0;
+  background-image: url(../images/smartphone.png);
+  background-size: 360px 720px;
+  background-repeat: no-repeat;
+  @include scale-viewport(375px, 667px, $width);
 }
 
 // Notifier
