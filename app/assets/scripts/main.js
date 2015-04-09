@@ -118,6 +118,8 @@
 
       $scope.import = function (data) {
         $scope.model = angular.copy(data);
+        $scope.$apply();
+        $scope.$broadcast('schemaFormValidate');
       };
 
       $scope.reset = function () {
