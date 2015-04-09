@@ -35,14 +35,19 @@
         </div>
         <div class="col-sm-5 col-sub">
           <div class="preview" data-spy="affix">
-            <div class="form-inline">
-              <div class="form-group">
+            <div class="form-inline clearfix">
+              <div class="form-group pull-left">
                 <label>Device</label>
                 <select class="form-control" ng-model="previewDevice">
                   <option value="pc">PC</option>
                   <option value="tablet">Tablet</option>
                   <option value="smartphone">Smartphone</option>
                 </select>
+              </div>
+              <div class="pull-right">
+                <a class="btn btn-default" title="Preview in new window" ng-click="openPreview()">
+                  <span class="glyphicon glyphicon-new-window"></span>
+                </a>
               </div>
             </div>
             <div class="embed-responsive viewport-wrapper viewport-{{previewDevice}}">

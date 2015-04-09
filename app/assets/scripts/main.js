@@ -86,6 +86,13 @@
         viewport.contentWindow.document.close();
       };
 
+      $scope.openPreview = function () {
+        var child = window.open();
+        child.document.open();
+        child.document.write($scope.getHtml());
+        child.document.close();
+      };
+
       $scope.downloadHtml = function () {
         $scope.$broadcast('schemaFormValidate');
         if (!$scope.appForm.$valid) {

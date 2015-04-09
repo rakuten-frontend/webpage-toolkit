@@ -5,7 +5,7 @@
       "type": "string",
       "title": "Title",
       "default": "Awesome Site",
-      "description": "Title of your web site",
+      "description": "Title of your web site. Max 20 characters.",
       "maxLength": 20
     },
     "image": {
