@@ -1,35 +1,3 @@
-$icon-font-path: "/assets/fonts/";
-
-// bower:scss
-@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
-// endbower
-
-.preview-wrapper {
-  padding-bottom: 500px;
-  border: 1px solid #ddd;
-}
-
-.preview {
-  transform-origin: 0 0;
-}
-
-.pc {
-  .preview {
-    width: 200% !important;
-    height: 200% !important;
-    transform: scale(0.5);
-  }
-}
-
-.tablet {
-  max-width: 400px;
-  .preview {
-    width: 200% !important;
-    height: 200% !important;
-    transform: scale(0.5);
-  }
-}
-
-.smartphone {
-  max-width: 360px;
-}
+@import "scaffolding";
+@import "layout";
+@import "components";

@@ -3,7 +3,6 @@
 
   var angular = window.angular;
   var _ = window._;
-  var $ = window.jQuery;
   var Handlebars = window.Handlebars;
 
   var appName = 'webpage-toolkit';
@@ -32,7 +31,7 @@
     'localStorageService',
     function ($scope, $q, $http, $timeout, localStorageService) {
 
-      var viewport = document.getElementById('preview');
+      var viewport = document.getElementById('viewport');
       var template;
 
       $scope.schema = {};

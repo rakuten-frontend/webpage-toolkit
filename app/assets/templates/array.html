@@ -13,11 +13,11 @@
       <sf-decorator ng-init="arrayIndex = $index" form="copyWithIndex($index)"></sf-decorator>
     </li>
   </ol>
-  <div class="clearfix" style="padding: 15px;">
+  <div class="text-right">
     <button ng-hide="form.readonly || (form.schema.maxItems && (modelArray.length >= form.schema.maxItems))"
             ng-click="appendToArray()"
             type="button"
-            class="btn {{ form.style.add || 'btn-default' }} pull-right">
+            class="btn {{ form.style.add || 'btn-default' }}">
       <i class="glyphicon glyphicon-plus"></i>
       {{ form.add || 'Add'}}
     </button>

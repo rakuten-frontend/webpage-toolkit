@@ -13,38 +13,41 @@
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
   </head>
-  <body>
-    <div class="container" ng-controller="FormController">
-      <h1>Web Page Toolkit</h1>
+  <body ng-controller="FormController">
+    <header class="header">
+      <div class="container clearfix">
+        <h1 class="pull-left app-title"><span class="glyphicon glyphicon-blackboard"></span> Web Page Toolkit</h1>
+        <div class="pull-right">
+          <button class="btn btn-default" ng-click="reset()">Reset all</button>
+          <span class="divider"></span>
+          <button class="btn btn-default" ng-file-select ng-model="importFiles" accept=".json">Import</button>
+          <button class="btn btn-default" ng-click="downloadJson()">Export</button>
+          <button class="btn btn-primary" ng-click="downloadHtml()">Download HTML</button>
+        </div>
+      </div>
+    </header>
+    <div class="content container">
       <div class="row" ng-show="initialized">
-        <div class="col-md-6">
-          <h2>Input</h2>
-          <form name="appForm" novalidate>
+        <div class="col-sm-7 col-main">
+          <form name="appForm" class="form" novalidate>
             <div sf-schema="schema" sf-form="form" sf-model="model"></div>
-            <div class="form-group clearfix">
-              <div class="pull-left">
-                <button class="btn btn-primary" ng-click="downloadHtml()">Download HTML</button>
-                <button class="btn btn-default" ng-click="downloadJson()">Export Data</button>
-                <button class="btn btn-default" ng-file-select ng-model="importFiles" accept=".json">Import Data</button>
-              </div>
-              <div class="pull-right">
-                <button class="btn btn-default" ng-click="reset()">Reset</button>
-              </div>
-            </div>
           </form>
         </div>
-        <div class="col-md-6">
-          <h2>Preview</h2>
-          <div class="form-group">
-            <label>Device</label>
-            <select class="form-control" ng-model="previewDevice">
-              <option value="pc">PC</option>
-              <option value="tablet">Tablet</option>
-              <option value="smartphone">Smartphone</option>
-            </select>
-          </div>
-          <div class="embed-responsive preview-wrapper {{previewDevice}}">
-            <iframe id="preview" class="preview"></iframe>
+        <div class="col-sm-5 col-sub">
+          <div class="preview" data-spy="affix">
+            <div class="form-inline">
+              <div class="form-group">
+                <label>Device</label>
+                <select class="form-control" ng-model="previewDevice">
+                  <option value="pc">PC</option>
+                  <option value="tablet">Tablet</option>
+                  <option value="smartphone">Smartphone</option>
+                </select>
+              </div>
+            </div>
+            <div class="embed-responsive viewport-wrapper viewport-{{previewDevice}}">
+              <iframe id="viewport" class="viewport"></iframe>
+            </div>
           </div>
         </div>
       </div>

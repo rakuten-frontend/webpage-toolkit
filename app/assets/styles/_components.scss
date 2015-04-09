@@ -1,0 +1,92 @@
+// Header
+.header {
+  .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .btn + .btn {
+    margin-left: 3px;
+  }
+}
+
+.divider {
+  display: inline-block;
+  height: 30px;
+  margin-left: 6px;
+  margin-right: 6px;
+  border-left: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.app-title {
+  margin: 0 15px 0 0;
+  line-height: 30px;
+  font-size: $font-size-large;
+  font-weight: bold;
+  color: $brand-primary;
+  cursor: default;
+  .glyphicon {
+    top: 2px;
+    margin-right: 0.1em;
+  }
+}
+
+// Form
+.form {
+  h3 {
+    font-size: 18px;
+  }
+  legend {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+}
+
+.schema-form-array {
+  .close {
+    position: absolute !important;
+    top: 3px;
+    right: 6px;
+  }
+}
+
+// Preview
+.preview {
+  width: $preview-width;
+}
+
+.form-inline label {
+  margin-right: 0.3em;
+}
+
+.viewport-wrapper {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+}
+
+.viewport {
+  background-color: #fff;
+  transform-origin: 0 0;
+}
+
+@mixin scale-viewport($device-width, $device-height, $viewport-width: $preview-width) {
+  $ratio: $device-height / $device-width;
+  $scale: $viewport-width / $device-width;
+  padding-bottom: $preview-width * $ratio;
+  .viewport {
+    width: 100% / $scale !important;
+    height: 100% / $scale !important;
+    transform: scale($scale);
+  }
+}
+
+.viewport-pc {
+  @include scale-viewport(1024px, 1600px);
+}
+.viewport-tablet {
+  @include scale-viewport(768px, 1024px);
+}
+.viewport-smartphone {
+  @include scale-viewport(360px, 640px);
+}
