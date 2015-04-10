@@ -38,7 +38,7 @@
             <div class="form-inline clearfix">
               <div class="form-group pull-left">
                 <label>Device</label>
-                <select class="form-control" ng-model="previewDevice">
+                <select class="form-control" ng-model="settings.previewDevice">
                   <option value="pc">PC</option>
                   <option value="tablet">Tablet</option>
                   <option value="smartphone">Smartphone</option>
@@ -50,7 +50,7 @@
                 </a>
               </div>
             </div>
-            <div class="viewport-wrapper viewport-{{previewDevice}}">
+            <div class="viewport-wrapper viewport-{{settings.previewDevice}}">
               <div class="embed-responsive">
                 <iframe id="viewport" class="viewport"></iframe>
               </div>

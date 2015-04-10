@@ -40,7 +40,9 @@
       $scope.defaults = {};
       $scope.form = ['*'];
       $scope.initialized = false;
-      $scope.previewDevice = 'pc';
+      $scope.settings = {
+        previewDevice: 'pc'
+      };
       $scope.errorShown = false;
       $scope.errorMessage = '';
 
@@ -50,10 +52,8 @@
         $q.all([schemaRequest, templateRequest]).then(function () {
           $timeout(function () {
             $scope.defaults = angular.copy($scope.model);
-            if (!localStorageService.get('model')) {
-              localStorageService.set('model', $scope.model);
-            }
-            localStorageService.bind($scope, 'model');
+            $scope.syncStorage('model');
+            $scope.syncStorage('settings');
             $scope.initialized = true;
           }, 100);   // Hotfix for getting array value correctly.
         });
@@ -71,6 +71,13 @@
           template = Handlebars.compile(data.data);
         });
         return request;
+      };
+
+      $scope.syncStorage = function (key) {
+        if (!localStorageService.get(key)) {
+          localStorageService.set(key, $scope[key]);
+        }
+        localStorageService.bind($scope, key);
       };
 
       $scope.getHtml = function () {
