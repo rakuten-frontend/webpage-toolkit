@@ -19,7 +19,7 @@ body {
 }
 
 .container {
-  max-width: $container-width;
+  width: $container-width;
 }
 
 .col-main {
@@ -27,4 +27,14 @@ body {
 }
 .col-sub {
   width: $preview-width + $grid-gutter-width;
+}
+
+// Large desctop
+@media (min-width: 1200px) {
+  .container {
+    width: $container-width-large;
+  }
+  .col-main {
+    width: $container-width-large - ($preview-width + $grid-gutter-width);
+  }
 }
