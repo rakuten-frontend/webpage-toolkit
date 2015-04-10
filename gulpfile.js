@@ -32,8 +32,12 @@ gulp.task('jshint', function () {
 
 gulp.task('html', ['styles'], function () {
   var assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
-  return gulp.src('app/*.html')
-    .pipe(assets)
+  return gulp.src([
+    'app/*.html',
+    'app/assets/templates/*.html'
+  ], {
+    base: 'app'
+  }).pipe(assets)
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.csso()))
     .pipe(assets.restore())
@@ -63,8 +67,10 @@ gulp.task('fonts', function () {
 gulp.task('extras', function () {
   return gulp.src([
     'app/*.*',
-    '!app/*.html'
+    '!app/*.html',
+    'app/data/*'
   ], {
+    base: 'app',
     dot: true
   }).pipe(gulp.dest('dist'));
 });
@@ -91,6 +97,14 @@ gulp.task('serve', ['styles', 'fonts'], function () {
   gulp.watch('app/assets/styles/**/*.scss', ['styles']);
   gulp.watch('app/assets/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
+});
+
+gulp.task('serve:dist', function () {
+  browserSync({
+    notify: false,
+    port: 9001,
+    server: 'dist'
+  });
 });
 
 gulp.task('wiredep', function () {
