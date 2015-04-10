@@ -20,5 +20,11 @@ All you have do is to code these 2 files!
 * Import/export form data
 * Auto-save in Local Storage
 
+## Usage
+**TBD**. (Sorry!)
+
+I'm planning to provide a CLI for generating your HTML generator.  
+Currently, you can clone this repo and run `gulp serve` to try the demo on your PC.
+
 ## License
 Copyright (c) 2015 Rakuten, Inc. Licensed under the [MIT License](LICENSE).
