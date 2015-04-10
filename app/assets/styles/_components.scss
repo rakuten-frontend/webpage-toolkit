@@ -88,27 +88,34 @@
 }
 
 .viewport-pc {
-  $width: $preview-width - 1px * 2;
-  border: 1px solid #ddd;
-  @include scale-viewport(1024px, 1600px, $width);
+  $padding: 1px;
+  $viewport-width: $preview-width - $padding * 2;
+  border: $padding solid #ddd;
+  @include scale-viewport(1024px, 1600px, $viewport-width);
 }
 .viewport-tablet {
-  $width: $preview-width - 42px * 2;
-  height: 467px;
-  padding: 50px 42px 0;
+  $width: 360px;
+  $height: 510px;
+  $padding: 24px;
+  $viewport-width: $preview-width - $padding * 2;
+  height: $height;
+  padding: 47px $padding 0;
   background-image: url(../images/tablet.png);
-  background-size: 360px 467px;
+  background-size: $width $height;
   background-repeat: no-repeat;
-  @include scale-viewport(768px, 1024px, $width);
+  @include scale-viewport(768px, 1024px, $viewport-width);
 }
 .viewport-smartphone {
-  $width: $preview-width - 25px * 2;
-  height: 720px;
-  padding: 83px 25px 0;
+  $width: 360px;
+  $height: 720px;
+  $padding: 25px;
+  $viewport-width: $preview-width - $padding * 2;
+  height: $height;
+  padding: 83px $padding 0;
   background-image: url(../images/smartphone.png);
-  background-size: 360px 720px;
+  background-size: $width $height;
   background-repeat: no-repeat;
-  @include scale-viewport(375px, 667px, $width);
+  @include scale-viewport(375px, 667px, $viewport-width);
 }
 
 // Notifier
