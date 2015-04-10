@@ -9,7 +9,7 @@ You can easily create a stylish [HTML generator](http://rakuten-frontend.github.
 All you have do is to code these 2 files!
 
 * **JSON**  
-  Form specification file based on [Angular Schema Form](https://github.com/Textalk/angular-schema-form). (see [example](app/data/schema.json))
+  Form specification file based on [Angular Schema Form](http://schemaform.io/). (see [example](app/data/schema.json))
 * **Template**  
   [Handlebars](http://handlebarsjs.com/) template for output HTML. (see [example](app/data/template.hbs))
 
