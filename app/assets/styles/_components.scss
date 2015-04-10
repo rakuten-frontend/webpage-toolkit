@@ -74,6 +74,15 @@
   transform-origin: 0 0;
 }
 
+@mixin device-frame($width, $height, $padding-top, $padding-side, $device-width, $device-height) {
+  $viewport-width: $width - $padding-side * 2;
+  height: $height;
+  padding: $padding-top $padding-side 0;
+  background-size: $width $height;
+  background-repeat: no-repeat;
+  @include scale-viewport($device-width, $device-height, $viewport-width);
+}
+
 @mixin scale-viewport($device-width, $device-height, $viewport-width: $preview-width) {
   $ratio: $device-height / $device-width;
   $scale: $viewport-width / $device-width;
@@ -88,34 +97,16 @@
 }
 
 .viewport-pc {
-  $padding: 1px;
-  $viewport-width: $preview-width - $padding * 2;
-  border: $padding solid #ddd;
-  @include scale-viewport(1024px, 1600px, $viewport-width);
+  background-image: url(../images/pc.png);
+  @include device-frame(360px, 585px, 25px, 1px, 1024px, 1600px);
 }
 .viewport-tablet {
-  $width: 360px;
-  $height: 510px;
-  $padding: 24px;
-  $viewport-width: $preview-width - $padding * 2;
-  height: $height;
-  padding: 47px $padding 0;
   background-image: url(../images/tablet.png);
-  background-size: $width $height;
-  background-repeat: no-repeat;
-  @include scale-viewport(768px, 1024px, $viewport-width);
+  @include device-frame(360px, 510px, 47px, 24px, 768px, 1024px);
 }
 .viewport-smartphone {
-  $width: 360px;
-  $height: 720px;
-  $padding: 25px;
-  $viewport-width: $preview-width - $padding * 2;
-  height: $height;
-  padding: 83px $padding 0;
   background-image: url(../images/smartphone.png);
-  background-size: $width $height;
-  background-repeat: no-repeat;
-  @include scale-viewport(375px, 667px, $viewport-width);
+  @include device-frame(360px, 720px, 83px, 25px, 375px, 667px);
 }
 
 // Notifier
