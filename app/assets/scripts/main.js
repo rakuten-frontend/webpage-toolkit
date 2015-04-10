@@ -4,6 +4,7 @@
   var angular = window.angular;
   var _ = window._;
   var Handlebars = window.Handlebars;
+  var saveAs = window.saveAs;
 
   var appName = 'webpage-toolkit';
   var schemaUrl = 'data/schema.json';
@@ -107,10 +108,8 @@
       };
 
       $scope.download = function (filename, text) {
-        var pom = document.createElement('a');
-        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        pom.setAttribute('download', filename);
-        pom.click();
+        var blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+        saveAs(blob, filename);
       };
 
       $scope.importJson = function (file) {
