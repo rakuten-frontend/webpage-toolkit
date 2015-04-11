@@ -87,6 +87,9 @@ gulp.task('serve', ['styles', 'fonts'], function () {
       routes: {
         '/bower_components': 'bower_components'
       }
+    },
+    ui: {
+      port: 9001
     }
   });
   gulp.watch([
@@ -103,8 +106,9 @@ gulp.task('serve', ['styles', 'fonts'], function () {
 gulp.task('serve:dist', function () {
   browserSync({
     notify: false,
-    port: 9001,
-    server: 'dist'
+    port: 9010,
+    server: 'dist',
+    ui: false
   });
 });
 
