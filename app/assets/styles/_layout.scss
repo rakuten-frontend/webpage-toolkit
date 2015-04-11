@@ -6,6 +6,7 @@ body {
   position: fixed;
   z-index: 1;
   width: 100%;
+  min-width: $container-width;
   border-bottom: 1px solid #ddd;
   background-color: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -36,5 +37,14 @@ body {
   }
   .col-main {
     width: $container-width-large - ($preview-width + $grid-gutter-width);
+  }
+}
+
+@media (max-width: $container-width) {
+  .header {
+    position: absolute;
+  }
+  .affix {
+    position: static;
   }
 }
