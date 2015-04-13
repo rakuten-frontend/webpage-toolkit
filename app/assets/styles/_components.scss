@@ -63,7 +63,7 @@
   margin-right: 0.3em;
 }
 
-.viewport-wrapper {
+.frame {
   overflow: hidden;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -74,39 +74,24 @@
   transform-origin: 0 0;
 }
 
-@mixin device-frame($width, $height, $padding-top, $padding-side, $device-width, $device-height) {
-  $viewport-width: $width - $padding-side * 2;
+@mixin device-frame($width, $height, $padding-top, $padding-side) {
   height: $height;
   padding: $padding-top $padding-side 0;
   background-size: $width $height;
   background-repeat: no-repeat;
-  @include scale-viewport($device-width, $device-height, $viewport-width);
 }
 
-@mixin scale-viewport($device-width, $device-height, $viewport-width: $preview-width) {
-  $ratio: $device-height / $device-width;
-  $scale: $viewport-width / $device-width;
-  .embed-responsive {
-    padding-bottom: $viewport-width * $ratio;
-  }
-  .viewport {
-    width: 100% / $scale !important;
-    height: 100% / $scale !important;
-    transform: scale($scale);
-  }
-}
-
-.viewport-pc {
+.frame-pc {
   background-image: url(../images/pc.png);
-  @include device-frame(360px, 585px, 25px, 1px, 1024px, 1600px);
+  @include device-frame(360px, 585px, 25px, 1px);
 }
-.viewport-tablet {
+.frame-tablet {
   background-image: url(../images/tablet.png);
-  @include device-frame(360px, 510px, 47px, 24px, 768px, 1024px);
+  @include device-frame(360px, 510px, 47px, 24px);
 }
-.viewport-smartphone {
+.frame-smartphone {
   background-image: url(../images/smartphone.png);
-  @include device-frame(360px, 720px, 83px, 25px, 375px, 667px);
+  @include device-frame(360px, 720px, 83px, 25px);
 }
 
 // Notifier

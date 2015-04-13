@@ -9,6 +9,20 @@
   var appName = 'webpage-toolkit';
   var schemaUrl = 'data/schema.json';
   var templateUrl = 'data/template.hbs';
+  var deviceData = {
+    pc: {
+      width: 1024,
+      height: 1600
+    },
+    tablet: {
+      width: 768,
+      height: 1024
+    },
+    smartphone: {
+      width: 375,
+      height: 667
+    }
+  };
 
   angular
   .module('webpageToolkit', ['schemaForm', 'angularFileUpload', 'LocalStorageModule', 'ui.sortable'])
@@ -168,6 +182,33 @@
 
       $scope.init();
 
+    }
+  ])
+  .directive('appViewport', [
+    '$timeout',
+    function ($timeout) {
+      return {
+        restrict: 'A',
+        link: function (scope, element) {
+          scope.$watch('settings.previewDevice', function () {
+            $timeout(function () {
+              var device = deviceData[scope.settings.previewDevice];
+              var viewportWidth = element.width();
+              var ratio = device.height / device.width;
+              var scale = viewportWidth / device.width;
+              var viewport = element.find('iframe');
+              element.css({
+                paddingBottom: viewportWidth * ratio
+              });
+              viewport.css({
+                width: (100 / scale) + '%',
+                height: (100 / scale) + '%',
+                transform: 'scale(' + scale + ')'
+              });
+            });
+          });
+        }
+      };
     }
   ]);
 
