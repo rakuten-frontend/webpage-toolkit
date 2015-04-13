@@ -3,7 +3,6 @@
 
   var angular = window.angular;
   var $ = window.jQuery;
-  var _ = window._;
   var Handlebars = window.Handlebars;
   var saveAs = window.saveAs;
 
