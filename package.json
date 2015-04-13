@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "autoprefixer-core": "^5.1.8",
-    "browser-sync": "2.5.3",
+    "browser-sync": "^2.6.1",
     "del": "^1.1.1",
     "gulp": "^3.6.0",
     "gulp-cache": "^0.2.2",
