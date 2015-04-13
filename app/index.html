@@ -26,9 +26,9 @@
       </div>
     </header>
     <div class="content container">
-      <div class="row" ng-cloak ng-show="initialized">
+      <div class="row" ng-cloak>
         <div class="col-xs-7 col-main">
-          <form name="appForm" class="form" novalidate>
+          <form name="appForm" class="form" novalidate ng-show="initialized">
             <div sf-schema="schema" sf-form="form" sf-model="model"></div>
           </form>
         </div>

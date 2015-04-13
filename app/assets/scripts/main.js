@@ -2,6 +2,7 @@
   'use strict';
 
   var angular = window.angular;
+  var $ = window.jQuery;
   var _ = window._;
   var Handlebars = window.Handlebars;
   var saveAs = window.saveAs;
@@ -23,6 +24,7 @@
       height: 667
     }
   };
+  var defaultViewportWidth = 980;
 
   angular
   .module('webpageToolkit', ['schemaForm', 'angularFileUpload', 'LocalStorageModule', 'ui.sortable'])
@@ -57,6 +59,8 @@
       $scope.settings = {
         previewDevice: 'pc'
       };
+      $scope.html = '';
+      $scope.previewWidth = 0;
       $scope.errorShown = false;
       $scope.errorMessage = '';
 
@@ -103,9 +107,44 @@
       };
 
       $scope.render = function () {
-        viewport.contentWindow.document.open();
-        viewport.contentWindow.document.write($scope.getHtml());
-        viewport.contentWindow.document.close();
+        $scope.html = $scope.getHtml();
+        $scope.previewWidth = $scope.getPreviewWidth();
+        $timeout(function () {
+          viewport.contentWindow.document.open();
+          viewport.contentWindow.document.write($scope.html);
+          viewport.contentWindow.document.close();
+        });
+      };
+
+      $scope.getPreviewWidth = function () {
+        if ($scope.settings.previewDevice === 'pc') {
+          return deviceData.pc.width;
+        }
+        var viewportData = $scope.getViewportData();
+        var width = viewportData.width;
+        if (!width) {
+          return defaultViewportWidth;
+        }
+        if (width === 'device-width') {
+          return deviceData[$scope.settings.previewDevice].width;
+        }
+        return parseInt(width, 10);
+      };
+
+      $scope.getViewportData = function () {
+        var viewportData = {};
+        var viewportContent = $('<div>').append($scope.html).find('meta[name="viewport"]').attr('content');
+        if (!viewportContent) {
+          return viewportData;
+        }
+        viewportContent.split(',').forEach(function (configSet) {
+          var config = configSet.trim().split('=');
+          if (!config[0] || !config[1]) {
+            return;
+          }
+          viewportData[config[0].trim()] = config[1].trim();
+        });
+        return viewportData;
       };
 
       $scope.openPreview = function () {
@@ -180,6 +219,10 @@
         $scope.importJson($scope.importFiles[0]);
       });
 
+      $scope.$watch('settings.previewDevice', function () {
+        $scope.previewWidth = $scope.getPreviewWidth();
+      });
+
       $scope.init();
 
     }
@@ -190,12 +233,12 @@
       return {
         restrict: 'A',
         link: function (scope, element) {
-          scope.$watch('settings.previewDevice', function () {
+          scope.$watchGroup(['settings.previewDevice', 'previewWidth'], function () {
             $timeout(function () {
               var device = deviceData[scope.settings.previewDevice];
               var viewportWidth = element.width();
               var ratio = device.height / device.width;
-              var scale = viewportWidth / device.width;
+              var scale = viewportWidth / scope.previewWidth;
               var viewport = element.find('iframe');
               element.css({
                 paddingBottom: viewportWidth * ratio
