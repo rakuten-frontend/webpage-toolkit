@@ -67,31 +67,30 @@
   overflow: hidden;
   margin-top: 15px;
   margin-bottom: 15px;
+  background-image: url(../images/devices.png);
+  background-repeat: no-repeat;
+  background-size: 1080px 720px;
+}
+
+.frame-pc {
+  height: 585px;
+  padding: 25px 1px 0;
+  background-position: 0 0;
+}
+.frame-tablet {
+  height: 510px;
+  padding: 47px 24px 0;
+  background-position: -360px 0;
+}
+.frame-smartphone {
+  height: 720px;
+  padding: 83px 25px 0;
+  background-position: -720px 0;
 }
 
 .viewport {
   background-color: #fff;
   transform-origin: 0 0;
-}
-
-@mixin device-frame($width, $height, $padding-top, $padding-side) {
-  height: $height;
-  padding: $padding-top $padding-side 0;
-  background-size: $width $height;
-  background-repeat: no-repeat;
-}
-
-.frame-pc {
-  background-image: url(../images/pc.png);
-  @include device-frame(360px, 585px, 25px, 1px);
-}
-.frame-tablet {
-  background-image: url(../images/tablet.png);
-  @include device-frame(360px, 510px, 47px, 24px);
-}
-.frame-smartphone {
-  background-image: url(../images/smartphone.png);
-  @include device-frame(360px, 720px, 83px, 25px);
 }
 
 // Notifier
