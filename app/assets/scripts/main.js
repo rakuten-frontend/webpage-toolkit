@@ -50,12 +50,14 @@
 
       var viewport = document.getElementById('viewport');
       var template;
+      var timer;
 
       $scope.schema = {};
       $scope.model = {};
       $scope.defaults = {};
       $scope.form = ['*'];
-      $scope.initialized = false;
+      $scope.loaded = false;
+      $scope.started = false;
       $scope.settings = {
         previewDevice: 'pc'
       };
@@ -68,12 +70,7 @@
         var schemaRequest = $scope.loadSchema();
         var templateRequest = $scope.loadTemplate();
         $q.all([schemaRequest, templateRequest]).then(function () {
-          $timeout(function () {
-            $scope.defaults = angular.copy($scope.model);
-            $scope.syncStorage('model');
-            $scope.syncStorage('settings');
-            $scope.initialized = true;
-          }, 100);   // Hotfix for getting array value correctly.
+          $scope.loaded = true;
         });
       };
 
@@ -89,6 +86,13 @@
           template = Handlebars.compile(data.data);
         });
         return request;
+      };
+
+      $scope.start = function () {
+        $scope.defaults = angular.copy($scope.model);
+        $scope.syncStorage('model');
+        $scope.syncStorage('settings');
+        $scope.started = true;
       };
 
       $scope.syncStorage = function (key) {
@@ -203,17 +207,23 @@
         }, 2000);
       };
 
-      $scope.$watch('model', _.debounce(function () {
-        if (!$scope.initialized) {
+      $scope.$watch('model', function () {
+        if (!$scope.loaded) {
           return;
         }
-        $scope.$apply(function () {
+        if (!$scope.started) {
+          $scope.start();
+        }
+        if (timer) {
+          $timeout.cancel(timer);
+        }
+        timer = $timeout(function () {
           $scope.render();
-        });
-      }, 500), true);
+        }, 500);
+      }, true);
 
       $scope.$watch('importFiles', function () {
-        if (!$scope.initialized || !$scope.importFiles || $scope.importFiles.length === 0) {
+        if (!$scope.started || !$scope.importFiles || $scope.importFiles.length === 0) {
           return;
         }
         $scope.importJson($scope.importFiles[0]);
