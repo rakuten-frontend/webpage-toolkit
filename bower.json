@@ -14,6 +14,7 @@
     "ng-file-upload": "~3.2.4",
     "angular-ui-sortable": "~0.13.3",
     "file-saver.js": "~1.20150304.1",
-    "bootstrap-sass": "~3.3.4"
+    "bootstrap-sass": "~3.3.4",
+    "dyframe": "~0.1.0"
   }
 }
