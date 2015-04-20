@@ -11,6 +11,11 @@
   var schemaUrl = 'data/schema.json';
   var templateUrl = 'data/template.hbs';
 
+  Dyframe.addProfile('pc', {
+    width: 1024,
+    deviceWidth: null
+  });
+
   angular
   .module('webpageToolkit', ['schemaForm', 'angularFileUpload', 'LocalStorageModule', 'ui.sortable'])
   .config([
@@ -33,7 +38,7 @@
     'localStorageService',
     function ($scope, $q, $http, $timeout, localStorageService) {
 
-      var dyframe = new Dyframe($('#dyframe')[0], {});
+      var dyframe = new Dyframe($('#dyframe')[0]);
       var template;
       var timer;
 
@@ -94,17 +99,9 @@
       };
 
       $scope.render = function () {
-        var profile = '';
-        switch ($scope.settings.previewDevice) {
-          case 'tablet':
-          case 'smartphone':
-            profile = $scope.settings.previewDevice;
-            break;
-        }
-        $('#dyframe').removeClass().addClass('frame frame-' + $scope.settings.previewDevice);
         dyframe.render({
           html: $scope.getHtml(),
-          profile: profile
+          profile: $scope.settings.previewDevice
         });
       };
 
