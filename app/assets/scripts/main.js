@@ -2,7 +2,6 @@
   'use strict';
 
   var angular = window.angular;
-  var $ = window.jQuery;
   var Handlebars = window.Handlebars;
   var saveAs = window.saveAs;
   var Dyframe = window.Dyframe;
@@ -38,9 +37,7 @@
     'localStorageService',
     function ($scope, $q, $http, $timeout, localStorageService) {
 
-      var dyframe = new Dyframe($('#dyframe')[0]);
       var template;
-      var timer;
 
       $scope.schema = {};
       $scope.model = {};
@@ -51,6 +48,7 @@
       $scope.settings = {
         previewDevice: 'pc'
       };
+      $scope.html = '';
       $scope.errorShown = false;
       $scope.errorMessage = '';
 
@@ -98,17 +96,10 @@
         return JSON.stringify($scope.model, null, '  ');
       };
 
-      $scope.render = function () {
-        dyframe.render({
-          html: $scope.getHtml(),
-          profile: $scope.settings.previewDevice
-        });
-      };
-
       $scope.openPreview = function () {
         var child = window.open();
         child.document.open();
-        child.document.write($scope.getHtml());
+        child.document.write($scope.html);
         child.document.close();
       };
 
@@ -118,7 +109,7 @@
           $scope.alert('Invalid form input');
           return;
         }
-        $scope.download('index.html', $scope.getHtml());
+        $scope.download('index.html', $scope.html);
       };
 
       $scope.downloadJson = function () {
@@ -168,12 +159,7 @@
         if (!$scope.started) {
           $scope.start();
         }
-        if (timer) {
-          $timeout.cancel(timer);
-        }
-        timer = $timeout(function () {
-          $scope.render();
-        }, 500);
+        $scope.html = $scope.getHtml();
       }, true);
 
       $scope.$watch('importFiles', function () {
@@ -187,11 +173,46 @@
         if (!$scope.started) {
           return;
         }
-        $scope.render();
       });
 
       $scope.init();
 
+    }
+  ])
+  .directive('dyframe', [
+    '$timeout',
+    function ($timeout) {
+      return {
+        restrict: 'EA',
+        scope: {
+          html: '=dfHtml',
+          profile: '@dfProfile'
+        },
+        link: function (scope, element) {
+          var dyframe = new Dyframe(element[0], {
+            html: scope.html || '',
+            profile: scope.profile || null
+          });
+          var timer;
+          var render = function () {
+            dyframe.render({
+              html: scope.html || '',
+              profile: scope.profile || null
+            });
+          };
+          scope.$watch('html', function () {
+            if (timer) {
+              $timeout.cancel(timer);
+            }
+            timer = $timeout(function () {
+              render();
+            }, 500);
+          });
+          scope.$watch('profile', function () {
+            render();
+          });
+        }
+      };
     }
   ]);
 

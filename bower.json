@@ -15,6 +15,6 @@
     "angular-ui-sortable": "~0.13.3",
     "file-saver.js": "~1.20150304.1",
     "bootstrap-sass": "~3.3.4",
-    "dyframe": "~0.3.0"
+    "dyframe": "~0.4.0"
   }
 }
