@@ -180,8 +180,7 @@
     }
   ])
   .directive('dyframe', [
-    '$timeout',
-    function ($timeout) {
+    function () {
       return {
         restrict: 'EA',
         scope: {
@@ -191,25 +190,14 @@
         link: function (scope, element) {
           var dyframe = new Dyframe(element[0], {
             html: scope.html || '',
-            profile: scope.profile || null
+            profile: scope.profile || null,
+            interval: 500
           });
-          var timer;
-          var render = function () {
+          scope.$watchGroup(['html', 'profile'], function () {
             dyframe.render({
               html: scope.html || '',
               profile: scope.profile || null
             });
-          };
-          scope.$watch('html', function () {
-            if (timer) {
-              $timeout.cancel(timer);
-            }
-            timer = $timeout(function () {
-              render();
-            }, 500);
-          });
-          scope.$watch('profile', function () {
-            render();
           });
         }
       };
