@@ -36,7 +36,8 @@
     '$http',
     '$timeout',
     'localStorageService',
-    function ($scope, $q, $http, $timeout, localStorageService) {
+    'parser',
+    function ($scope, $q, $http, $timeout, localStorageService, parser) {
 
       var template;
 
@@ -90,7 +91,7 @@
       };
 
       $scope.getHtml = function () {
-        return template($scope.model);
+        return template(parser.parse($scope.model));
       };
 
       $scope.getJson = function () {
