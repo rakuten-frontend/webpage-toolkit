@@ -2,6 +2,7 @@
   'use strict';
 
   var angular = window.angular;
+  var _ = window._;
   var Handlebars = window.Handlebars;
   var saveAs = window.saveAs;
   var Dyframe = window.Dyframe;
@@ -130,7 +131,9 @@
       };
 
       $scope.parseJson = function (string) {
-        return JSON.parse(string);
+        var data = JSON.parse(string);
+        data = _.pick(data, Object.keys($scope.defaults));
+        return data;
       };
 
       $scope.import = function (data) {
